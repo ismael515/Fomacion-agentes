@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EducUp — Academia de Ventas</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf8;
+  --bg2: #f2f1ee;
+  --bg3: #e8e6e1;
+  --ink: #1a1814;
+  --ink2: #4a4640;
+  --ink3: #8a8480;
+  --line: #dedad4;
+  --green: #1a7a4a;
+  --green-bg: #edf7f1;
+  --green-mid: #2ea866;
+  --blue: #1a4fa0;
+  --blue-bg: #eff4ff;
+  --amber: #a05a10;
+  --amber-bg: #fff7ed;
+  --red: #b91c1c;
+  --red-bg: #fef2f2;
+  --purple: #6b21a8;
+  --purple-bg: #faf5ff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 16px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.04);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+/* ── SIDEBAR ── */
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  transition: transform 0.3s;
+}
+
+.sidebar-logo {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.logo-mark {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+}
+.logo-mark span { color: #4ade80; }
+.logo-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+.sidebar-nav {
+  padding: 1rem 0.75rem;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-section-label {
+  font-size: 0.6rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  padding: 0.8rem 0.75rem 0.3rem;
+  font-weight: 600;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s;
+  color: rgba(255,255,255,0.55);
+  font-size: 0.84rem;
+  font-weight: 500;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
+.nav-item.active { background: rgba(74,222,128,0.12); color: #4ade80; }
+.nav-item .nav-icon { font-size: 1rem; min-width: 1.2rem; }
+.nav-item .nav-badge {
+  margin-left: auto;
+  background: rgba(74,222,128,0.15);
+  color: #4ade80;
+  font-size: 0.65rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.25);
+  line-height: 1.5;
+}
+
+/* ── MAIN ── */
+.main {
+  margin-left: 240px;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250,250,248,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.topbar-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--ink3);
+}
+.prog-bar {
+  width: 120px;
+  height: 5px;
+  background: var(--bg3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2ea866, #1a7a4a);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+  width: 20%;
+}
+
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── CONTENT ── */
+.content { padding: 2.5rem 2.5rem 4rem; max-width: 1000px; }
+
+.page-hero {
+  margin-bottom: 2.5rem;
+}
+.page-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.page-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--ink);
+}
+.page-sub {
+  color: var(--ink3);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-top: 0.6rem;
+  max-width: 560px;
+}
+
+/* ── HOME ── */
+.kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 2rem; }
+.kpi {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.kpi-val {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -1px;
+}
+.kpi-label { font-size: 0.78rem; color: var(--ink3); margin-top: 0.25rem; }
+
+.feature-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+.feature-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.feature-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.feature-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.feature-card h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+.feature-card p { font-size: 0.82rem; color: var(--ink3); line-height: 1.6; }
+.feature-tag {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 0.25rem 0.6rem;
+  border-radius: 5px;
+}
+
+.ventajas-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-top: 0.5rem; }
+.ventaja {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+.ventaja-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background: var(--green-bg);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.ventaja h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+.ventaja p { font-size: 0.8rem; color: var(--ink3); line-height: 1.5; }
+.vs-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* ── PRODUCTS ── */
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(290px,1fr)); gap: 1.25rem; }
+
+.prod-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.prod-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent-color, #2ea866);
+}
+.prod-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+
+.prod-pill {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+.prod-card h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+.prod-desc { font-size: 0.82rem; color: var(--ink3); line-height: 1.6; margin-bottom: 1rem; }
+.prod-meta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.prod-chip {
+  font-size: 0.74rem;
+  color: var(--ink2);
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+
+.income-section { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.income-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+.income-row span { font-size: 0.72rem; color: var(--ink3); }
+.income-track { height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.income-fill { height: 100%; border-radius: 3px; }
+
+.expand-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.55rem;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--ink2);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500;
+}
+.expand-btn:hover { background: var(--ink); color: white; border-color: var(--ink); }
+
+.prod-detail { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.83rem; line-height: 1.7; color: var(--ink2); }
+.prod-detail.open { display: block; animation: fadeIn 0.25s ease; }
+.prod-detail strong { color: var(--ink); }
+.prod-detail ul { padding-left: 1.2rem; margin: 0.4rem 0 0.8rem; }
+.prod-detail li { margin-bottom: 0.3rem; }
+.detail-pitch {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green-mid);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem;
+  color: var(--green);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+.cost-note { display: inline-block; margin-top: 0.5rem; font-size: 0.74rem; background: var(--amber-bg); color: var(--amber); padding: 0.25rem 0.6rem; border-radius: 5px; }
+
+/* ── HERRAMIENTAS (tabbed) ── */
+.tool-tabs {
+  display: flex;
+  gap: 0.35rem;
+  border-bottom: 2px solid var(--line);
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.tool-tab {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ink3);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+  font-family: 'Instrument Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.tool-tab:hover { color: var(--ink); }
+.tool-tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+.tool-panel { display: none; }
+.tool-panel.active { display: block; animation: fadeIn 0.25s ease; }
+
+/* Speech inside tools */
+.speech-steps { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.sp-step {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  color: var(--ink3);
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  border: none;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.sp-step:hover { background: var(--bg3); color: var(--ink); }
+.sp-step.active { background: var(--ink); color: white; }
+
+.sp-content { display: none; }
+.sp-content.active { display: block; animation: fadeIn 0.25s ease; }
+
+.sp-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+.sp-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.sp-num {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background: var(--ink);
+  color: white;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sp-info h3 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 1.05rem; }
+.sp-info p { font-size: 0.82rem; color: var(--ink3); margin-top: 0.25rem; }
+
+.speech-text {
+  background: var(--bg2);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+  border-left: 3px solid var(--ink);
+}
+.speech-text em { color: var(--green); font-style: normal; font-weight: 600; }
+
+.tip-row {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.83rem;
+  color: #92400e;
+  display: flex;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+.tip-alt {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.83rem;
+  color: #14532d;
+  display: flex;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+.tip-warn {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.83rem;
+  color: #991b1b;
+  display: flex;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+.tip-blue {
+  background: var(--blue-bg);
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.83rem;
+  color: #1e3a8a;
+  display: flex;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.obj-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+.obj-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: white;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.obj-q {
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+.obj-q:hover { background: var(--bg2); }
+.obj-q-left { display: flex; align-items: center; gap: 0.6rem; }
+.obj-badge { font-size: 0.65rem; background: var(--red-bg); color: var(--red); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+.obj-arrow { color: var(--ink3); transition: transform 0.2s; font-size: 0.8rem; }
+.obj-arrow.open { transform: rotate(180deg); }
+.obj-a {
+  display: none;
+  padding: 0 1.1rem 1rem;
+  font-size: 0.84rem;
+  color: var(--ink2);
+  line-height: 1.7;
+  border-top: 1px solid var(--line);
+  background: #f9fafb;
+  margin-top: 0;
+}
+.obj-a.open { display: block; animation: fadeIn 0.2s ease; padding-top: 0.9rem; }
+
+/* Glosario inside tools */
+.glos-search {
+  width: 100%;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem 0.75rem 2.6rem;
+  font-size: 0.88rem;
+  font-family: 'Instrument Sans', sans-serif;
+  color: var(--ink);
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow-sm);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a8480' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.35-4.35'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0.85rem center;
+  margin-bottom: 1.5rem;
+}
+.glos-search:focus { border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(46,168,102,0.1); }
+.glos-filters { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.glos-filter {
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: white;
+  color: var(--ink3);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.glos-filter:hover, .glos-filter.active { background: var(--ink); color: white; border-color: var(--ink); }
+.glos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 0.9rem; }
+.glos-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
+}
+.glos-card:hover { box-shadow: var(--shadow); }
+.glos-term { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 0.92rem; color: var(--ink); margin-bottom: 0.4rem; }
+.glos-def { font-size: 0.8rem; color: var(--ink3); line-height: 1.6; }
+.glos-cat {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Links inside tools */
+.links-intro {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  font-size: 0.84rem;
+  color: var(--ink2);
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+}
+.links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1rem; }
+.link-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.link-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); border-color: var(--green-mid); }
+.link-card-header { display: flex; align-items: center; justify-content: space-between; }
+.link-prod-name { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1rem; }
+.link-price {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+}
+.link-card-desc { font-size: 0.8rem; color: var(--ink3); line-height: 1.5; }
+.link-url-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.45rem 0.75rem;
+  margin-top: 0.25rem;
+}
+.link-url-text { font-size: 0.72rem; color: var(--ink3); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: monospace; }
+.copy-btn {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--green);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Instrument Sans', sans-serif;
+  white-space: nowrap;
+}
+.copy-btn:hover { text-decoration: underline; }
+.link-open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  background: var(--ink);
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.link-open:hover { background: var(--green); }
+.platform-link {
+  background: white;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.platform-icon { font-size: 2rem; }
+.platform-info h3 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1rem; margin-bottom: 0.3rem; }
+.platform-info p { font-size: 0.82rem; color: var(--ink3); }
+.platform-info a { color: var(--green); font-weight: 600; text-decoration: none; font-size: 0.82rem; }
+.platform-info a:hover { text-decoration: underline; }
+
+/* ── PROCESO ── */
+.proc-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.proc-tab {
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg2);
+  color: var(--ink3);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.proc-tab:hover { background: var(--bg3); color: var(--ink); }
+.proc-tab.active { background: var(--ink); color: white; border-color: var(--ink); }
+
+.proc-panel { display: none; }
+.proc-panel.active { display: block; animation: fadeIn 0.25s ease; }
+
+.proc-track { display: flex; flex-direction: column; gap: 1px; position: relative; }
+.proc-track::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--green-mid), var(--bg3));
+}
+.proc-step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  padding-left: calc(19px + 1.25rem + 1.25rem);
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  margin-left: 19px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+.proc-step::before {
+  content: attr(data-num);
+  position: absolute;
+  left: -19px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  background: var(--ink);
+  border: 3px solid var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: white;
+}
+.proc-step-emoji { font-size: 1.5rem; min-width: 1.8rem; }
+.proc-step h4 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 0.92rem; margin-bottom: 0.3rem; }
+.proc-step p { font-size: 0.82rem; color: var(--ink3); line-height: 1.6; }
+.cost-pill { display: inline-block; margin-top: 0.4rem; font-size: 0.72rem; background: var(--amber-bg); color: var(--amber); padding: 0.2rem 0.6rem; border-radius: 5px; font-weight: 600; }
+
+/* ── QUIZ ── */
+.quiz-wrap { background: white; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.quiz-topbar {
+  background: var(--ink);
+  padding: 1.1rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.quiz-topbar span { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+.quiz-topbar strong { color: white; font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.95rem; }
+.quiz-dots { display: flex; gap: 0.4rem; }
+.quiz-dot { width: 24px; height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; transition: background 0.3s; }
+.quiz-dot.done { background: #4ade80; }
+.quiz-dot.current { background: rgba(255,255,255,0.7); }
+.quiz-body { padding: 2rem 1.75rem; }
+.quiz-q { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.1rem; font-weight: 700; line-height: 1.4; margin-bottom: 1.5rem; }
+.quiz-opts { display: flex; flex-direction: column; gap: 0.6rem; }
+.quiz-opt {
+  padding: 0.85rem 1.1rem;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.86rem;
+  transition: all 0.15s;
+  text-align: left;
+  background: white;
+  font-family: 'Instrument Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.quiz-opt:hover { border-color: var(--ink); background: var(--bg2); }
+.quiz-opt .opt-letter {
+  width: 26px; height: 26px; min-width: 26px;
+  background: var(--bg2);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.74rem; font-weight: 700; color: var(--ink3);
+}
+.quiz-opt.correct { border-color: var(--green-mid); background: var(--green-bg); color: var(--green); }
+.quiz-opt.correct .opt-letter { background: var(--green-mid); color: white; }
+.quiz-opt.wrong { border-color: #ef4444; background: #fef2f2; color: var(--red); }
+.quiz-opt.wrong .opt-letter { background: #ef4444; color: white; }
+.quiz-fb {
+  margin-top: 1rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  display: none;
+}
+.quiz-fb.show { display: block; animation: fadeIn 0.25s ease; }
+.quiz-fb.ok { background: var(--green-bg); border: 1px solid #bbf7d0; color: #14532d; }
+.quiz-fb.err { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+.quiz-nxt { margin-top: 1.25rem; display: none; }
+.quiz-nxt.show { display: block; }
+.btn-next {
+  background: var(--ink);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Instrument Sans', sans-serif;
+  transition: background 0.2s;
+}
+.btn-next:hover { background: #333; }
+.quiz-result { padding: 3rem 1.75rem; text-align: center; }
+.result-score { font-family: 'Bricolage Grotesque', sans-serif; font-size: 4rem; font-weight: 800; color: var(--ink); letter-spacing: -3px; }
+.result-pct { font-size: 1rem; color: var(--ink3); margin-top: 0.25rem; }
+.result-msg { margin-top: 1rem; font-size: 0.9rem; line-height: 1.6; color: var(--ink2); max-width: 400px; margin: 1rem auto 0; }
+.btn-retry {
+  margin-top: 1.5rem;
+  background: var(--ink);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  transition: background 0.2s;
+}
+.btn-retry:hover { background: var(--green); }
+
+/* Mobile hamburger */
+.hamburger { display: none; position: fixed; top: 0.85rem; right: 1rem; z-index: 200; background: var(--ink); color: white; border: none; border-radius: 8px; width: 36px; height: 36px; cursor: pointer; font-size: 1.1rem; }
+
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .hamburger { display: flex; align-items: center; justify-content: center; }
+  .kpi-row { grid-template-columns: repeat(2,1fr); }
+  .feature-grid, .ventajas-grid { grid-template-columns: 1fr; }
+  .content { padding: 1.5rem 1.25rem 3rem; }
+  .topbar { padding: 0 1rem 0 3.5rem; }
+}
+
+.divider { height: 1px; background: var(--line); margin: 2rem 0; }
+.section-heading {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-heading::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">Edu<span>Cup</span></div>
+    <div class="logo-sub">Academia de Ventas</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Principal</div>
+    <button class="nav-item active" onclick="showPage('inicio')">
+      <span class="nav-icon">🏠</span> Inicio
+    </button>
+    <button class="nav-item" onclick="showPage('productos')">
+      <span class="nav-icon">💼</span> Productos
+      <span class="nav-badge">6</span>
+    </button>
+    <button class="nav-item" onclick="showPage('proceso')">
+      <span class="nav-icon">🗺</span> Proceso Post-Curso
+    </button>
+    <button class="nav-item" onclick="showPage('quiz')">
+      <span class="nav-icon">🧠</span> Quiz
+    </button>
+
+    <div class="nav-section-label" style="margin-top:0.5rem;">Herramientas del Agente</div>
+    <button class="nav-item" onclick="showPage('herramientas'); switchTool('speech')">
+      <span class="nav-icon">🎙</span> Speech de Ventas
+    </button>
+    <button class="nav-item" onclick="showPage('herramientas'); switchTool('glosario')">
+      <span class="nav-icon">📖</span> Glosario
+    </button>
+    <button class="nav-item" onclick="showPage('herramientas'); switchTool('enlaces')">
+      <span class="nav-icon">🔗</span> Links de Pago
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    Dimecuba × EducUp<br>
+    Florida, Estados Unidos
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <span class="topbar-title" id="topbarTitle">Inicio</span>
+    <div class="topbar-progress">
+      <span id="progLabel">Progreso</span>
+      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE: INICIO ═══ -->
+  <div id="page-inicio" class="page active">
+    <div class="content">
+      <div class="page-hero">
+        <div class="page-eyebrow">🎓 Bienvenido</div>
+        <div class="page-title">Tu academia de ventas<br>EducUp Florida</div>
+        <div class="page-sub">Todo lo que necesitas para convertirte en un agente top. Aprende los productos, domina el speech y certifica tus conocimientos.</div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-val">6</div><div class="kpi-label">Licencias disponibles</div></div>
+        <div class="kpi"><div class="kpi-val">$150</div><div class="kpi-label">Precio promocional</div></div>
+        <div class="kpi"><div class="kpi-val">1 año</div><div class="kpi-label">Para completar curso</div></div>
+        <div class="kpi"><div class="kpi-val">100%</div><div class="kpi-label">En español</div></div>
+      </div>
+
+      <div class="section-heading">¿Qué vas a aprender?</div>
+      <div class="feature-grid">
+        <div class="feature-card" onclick="showPage('productos')">
+          <div class="feature-icon">💼</div>
+          <h3>Los 6 productos</h3>
+          <p>Conoce cada licencia: qué vende, cuánto gana el cliente y cómo presentarla en la llamada.</p>
+          <span class="feature-tag">→ Ver productos</span>
+        </div>
+        <div class="feature-card" onclick="showPage('herramientas'); switchTool('speech')">
+          <div class="feature-icon">🎙</div>
+          <h3>Speech paso a paso</h3>
+          <p>El guión completo de la llamada con respuestas a todas las objeciones frecuentes.</p>
+          <span class="feature-tag">→ Practicar ahora</span>
+        </div>
+        <div class="feature-card" onclick="showPage('proceso')">
+          <div class="feature-icon">🗺</div>
+          <h3>Ruta post-curso</h3>
+          <p>Lo que el cliente debe hacer después del curso para obtener su licencia oficial.</p>
+          <span class="feature-tag">→ Ver proceso</span>
+        </div>
+        <div class="feature-card" onclick="showPage('quiz')">
+          <div class="feature-icon">🧠</div>
+          <h3>Quiz de evaluación</h3>
+          <p>10 preguntas para medir tu nivel antes de tu primera llamada de ventas real.</p>
+          <span class="feature-tag">→ Tomar quiz</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-heading">Por qué Educup gana</div>
+      <div class="ventajas-grid">
+        <div class="ventaja">
+          <div class="ventaja-icon">📅</div>
+          <div>
+            <h4>1 año para completar</h4>
+            <p>Sin presión. Los competidores solo dan 3 meses.</p>
+            <span class="vs-tag">✓ Nosotros: 1 año &nbsp;|&nbsp; ✗ Otros: 3 meses</span>
+          </div>
+        </div>
+        <div class="ventaja">
+          <div class="ventaja-icon">🤝</div>
+          <div>
+            <h4>Acompañamiento completo</h4>
+            <p>Hasta obtener la licencia. En 2-15 y 2-40 también ayudamos con los primeros clientes.</p>
+            <span class="vs-tag">✓ Nosotros: guía total &nbsp;|&nbsp; ✗ Otros: solos</span>
+          </div>
+        </div>
+        <div class="ventaja">
+          <div class="ventaja-icon">🇪🇸</div>
+          <div>
+            <h4>100% en español</h4>
+            <p>Plataforma y soporte totalmente en español. La competencia opera en inglés.</p>
+            <span class="vs-tag">✓ Nosotros: español &nbsp;|&nbsp; ✗ Otros: inglés</span>
+          </div>
+        </div>
+        <div class="ventaja">
+          <div class="ventaja-icon">💰</div>
+          <div>
+            <h4>Precio $150 (promo Dimecuba)</h4>
+            <p>Precio regular $300+. El descuento es válido solo durante la llamada.</p>
+            <span class="vs-tag">✓ $150 en llamada &nbsp;|&nbsp; ✗ $300+ en otros</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE: PRODUCTOS ═══ -->
+  <div id="page-productos" class="page">
+    <div class="content">
+      <div class="page-hero">
+        <div class="page-eyebrow">💼 Portafolio</div>
+        <div class="page-title">Los 6 productos</div>
+        <div class="page-sub">Estudia cada licencia en detalle. Haz clic en "Ver detalles" para el argumento de venta y perfil ideal del comprador.</div>
+      </div>
+      <div class="products-grid">
+
+        <div class="prod-card" style="--accent-color:#2ea866;">
+          <div class="prod-pill" style="background:#dcfce7;color:#15803d;">⭐ Más completa</div>
+          <h3>2-15 Vida, Salud y Anualidades</h3>
+          <p class="prod-desc">Permite vender Obamacare, Medicare, seguros de vida y planes de retiro. La licencia más rentable.</p>
+          <div class="prod-meta">
+            <span class="prod-chip">⏱ 60 horas</span>
+            <span class="prod-chip">🏷 Vida + Salud</span>
+          </div>
+          <div class="income-section">
+            <div class="income-row"><span>Pesimista: $35K – $45K/año</span><span>Excelente: $250K+/año</span></div>
+            <div class="income-track"><div class="income-fill" style="width:90%;background:linear-gradient(90deg,#2ea866,#1a7a4a)"></div></div>
+          </div>
+          <button class="expand-btn" onclick="toggleDet(this)">Ver detalles ↓</button>
+          <div class="prod-detail">
+            <strong>Perfil ideal del comprador:</strong>
+            <ul><li>Quiere la carrera más completa en seguros</li><li>Interesado en temporada AEP (Obamacare)</li><li>Busca ingresos residuales por renovaciones</li></ul>
+            <div class="detail-pitch">«Con la 2-15 trabajas en todas las temporadas del año y cobras renovaciones cada año por pólizas que ya vendiste. Es ingreso pasivo real.»</div>
+            <span class="cost-note">Costos post: ~$85 solicitud + ~$55 huellas + ~$44 examen Pearson</span>
+          </div>
+        </div>
+
+        <div class="prod-card" style="--accent-color:#3b82f6;">
+          <div class="prod-pill" style="background:#dbeafe;color:#1d4ed8;">Vida e Inversión</div>
+          <h3>2-14 Vida y Anualidades</h3>
+          <p class="prod-desc">Seguros de vida y productos de inversión/retiro. No incluye salud. Alto valor por transacción.</p>
+          <div class="prod-meta">
+            <span class="prod-chip">⏱ 40 horas</span>
+            <span class="prod-chip">🏷 Vida + Retiro</span>
+          </div>
+          <div class="income-section">
+            <div class="income-row"><span>Pesimista: $30K – $40K/año</span><span>Excelente: $120K+/año</span></div>
+            <div class="income-track"><div class="income-fill" style="width:75%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div>
+          </div>
+          <button class="expand-btn" onclick="toggleDet(this)">Ver detalles ↓</button>
+          <div class="prod-detail">
+            <strong>Perfil ideal:</strong>
+            <ul><li>Red de contactos con alto poder adquisitivo</li><li>Interés en planificación financiera/retiro</li><li>Busca comisiones altas por venta</li></ul>
+            <div class="detail-pitch">«Las anualidades y seguros de vida premium tienen las comisiones más altas por transacción individual en la industria.»</div>
+          </div>
+        </div>
+
+        <div class="prod-card" style="--accent-color:#10b981;">
+          <div class="prod-pill" style="background:#d1fae5;color:#065f46;">Solo Salud</div>
+          <h3>2-40 Health (Solo Salud)</h3>
+          <p class="prod-desc">Seguros médicos, incapacidad y Medicare. Sin vida. Entrada rápida al mercado laboral desde casa.</p>
+          <div class="prod-meta">
+            <span class="prod-chip">⏱ 40 horas</span>
+            <span class="prod-chip">🏷 Solo Salud</span>
+          </div>
+          <div class="income-section">
+            <div class="income-row"><span>Pesimista: $25K – $35K/año</span><span>Excelente: $100K+/año</span></div>
+            <div class="income-track"><div class="income-fill" style="width:62%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div>
+          </div>
+          <button class="expand-btn" onclick="toggleDet(this)">Ver detalles ↓</button>
+          <div class="prod-detail">
+            <strong>Perfil ideal:</strong>
+            <ul><li>Quiere entrar rápido al mercado laboral</li><li>Trabajo desde casa / call center</li><li>Interesado en Medicare (residuales altos)</li></ul>
+            <div class="detail-pitch">«Los centros de llamadas contratan de inmediato agentes 2-40. Es la entrada más rápida al mercado de seguros.»</div>
+            <span class="cost-note">Costos post: ~$50 solicitud + ~$55 huellas + ~$44 examen Pearson</span>
+          </div>
+        </div>
+
+        <div class="prod-card" style="--accent-color:#f59e0b;">
+          <div class="prod-pill" style="background:#fef3c7;color:#92400e;">🏢 Empresario</div>
+          <h3>2-20 Líneas Generales (P&C)</h3>
+          <p class="prod-desc">Autos, casas, negocios y botes. La única licencia que permite abrir tu propia agencia y supervisar agentes.</p>
+          <div class="prod-meta">
+            <span class="prod-chip">⏱ 200 horas</span>
+            <span class="prod-chip">🏷 Todo lo material</span>
+          </div>
+          <div class="income-section">
+            <div class="income-row"><span>Pesimista: $40K – $55K/año</span><span>Excelente: $500K+/año</span></div>
+            <div class="income-track"><div class="income-fill" style="width:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+          </div>
+          <button class="expand-btn" onclick="toggleDet(this)">Ver detalles ↓</button>
+          <div class="prod-detail">
+            <strong>Perfil ideal:</strong>
+            <ul><li>Mentalidad empresarial, visión a largo plazo</li><li>Quiere tener agentes trabajando para él</li><li>Comunidades latinas con alta demanda de seguros</li></ul>
+            <div class="detail-pitch">«Es la licencia del empresario. Con el tiempo puedes tener tu propia agencia y generar ingresos mientras otros venden.»</div>
+            <p style="color:#b45309;font-size:0.8rem;margin-top:0.5rem;">⚠ Requiere mayor compromiso: 200 horas de estudio.</p>
+          </div>
+        </div>
+
+        <div class="prod-card" style="--accent-color:#ef4444;">
+          <div class="prod-pill" style="background:#fee2e2;color:#991b1b;">🏠 Bienes Raíces</div>
+          <h3>Real Estate (Realtor)</h3>
+          <p class="prod-desc">Compra, venta y renta de propiedades en Florida. 100% comisión. Alto potencial con la red correcta.</p>
+          <div class="prod-meta">
+            <span class="prod-chip">⏱ 63 horas</span>
+            <span class="prod-chip">🏷 Inmobiliario</span>
+          </div>
+          <div class="income-section">
+            <div class="income-row"><span>Pesimista: $0 – $20K/año</span><span>Excelente: $300K+/año</span></div>
+            <div class="income-track"><div class="income-fill" style="width:85%;background:linear-gradient(90deg,#ef4444,#fb923c)"></div></div>
+          </div>
+          <button class="expand-btn" onclick="toggleDet(this)">Ver detalles ↓</button>
+          <div class="prod-detail">
+            <strong>⚠ Ojo al vender:</strong>
+            <p style="margin:0.4rem 0;">Es 100% comisión. Si el cliente no vende propiedades, no cobra. Enfócate en perfiles con red de contactos activa.</p>
+            <strong>Perfil ideal:</strong>
+            <ul><li>Personas muy sociables con amplia red</li><li>Interés en comisiones altas por transacción</li><li>Mercado de lujo (Miami, Orlando)</li></ul>
+          </div>
+        </div>
+
+        <div class="prod-card" style="--accent-color:#a855f7;">
+          <div class="prod-pill" style="background:#f3e8ff;color:#6b21a8;">👩‍⚕️ Salud Especial</div>
+          <h3>RBT — Técnico de Comportamiento</h3>
+          <p class="prod-desc">Trabaja con niños con autismo aplicando terapia ABA. Sin título universitario. Alta demanda en Florida.</p>
+          <div class="prod-meta">
+            <span class="prod-chip">⏱ 40 horas</span>
+            <span class="prod-chip">🏷 Educación Especial</span>
+          </div>
+          <div class="income-section">
+            <div class="income-row"><span>Pesimista: $35K – $40K/año</span><span>Excelente: $55K – $65K/año</span></div>
+            <div class="income-track"><div class="income-fill" style="width:50%;background:linear-gradient(90deg,#a855f7,#c084fc)"></div></div>
+          </div>
+          <button class="expand-btn" onclick="toggleDet(this)">Ver detalles ↓</button>
+          <div class="prod-detail">
+            <strong>Por qué comprarlo:</strong>
+            <ul><li>Escasez crítica de técnicos en Florida → contratación inmediata</li><li>No requiere título universitario</li><li>Trabajo con propósito: niños con autismo</li></ul>
+            <div class="detail-pitch" style="border-left-color:#a855f7;background:#faf5ff;color:#6b21a8;">«Las clínicas están contratando de inmediato. Terminas el curso y hay trabajo esperándote.»</div>
+            <span class="cost-pill" style="background:#faf5ff;color:#6b21a8;">Costo post: ~$50 aplicación BACB + ~$45 examen</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE: HERRAMIENTAS ═══ -->
+  <div id="page-herramientas" class="page">
+    <div class="content">
+      <div class="page-hero">
+        <div class="page-eyebrow">🛠 Herramientas del Agente</div>
+        <div class="page-title">Todo en un lugar</div>
+        <div class="page-sub">Speech de ventas, glosario de términos técnicos y links directos de pago para cerrar en la llamada.</div>
+      </div>
+
+      <div class="tool-tabs">
+        <button class="tool-tab active" id="tab-speech" onclick="switchTool('speech')">🎙 Speech de Ventas</button>
+        <button class="tool-tab" id="tab-glosario" onclick="switchTool('glosario')">📖 Glosario</button>
+        <button class="tool-tab" id="tab-enlaces" onclick="switchTool('enlaces')">🔗 Links de Pago</button>
+      </div>
+
+      <!-- ── SPEECH ── -->
+      <div id="tool-speech" class="tool-panel active">
+        <div class="speech-steps">
+          <button class="sp-step active" onclick="showStep(0)">1 · Presentación</button>
+          <button class="sp-step" onclick="showStep(1)">2 · Historia</button>
+          <button class="sp-step" onclick="showStep(2)">3 · Explicación</button>
+          <button class="sp-step" onclick="showStep(3)">4 · Cierre</button>
+          <button class="sp-step" onclick="showStep(4)">5 · Referidos</button>
+          <button class="sp-step" onclick="showStep(5)">⚡ Objeciones</button>
+        </div>
+
+        <div id="sp-0" class="sp-content active">
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-num">1</div>
+              <div class="sp-info"><h3>Presentación</h3><p>El primer impacto es clave. Sé cálido, claro y directo desde el primer segundo.</p></div>
+            </div>
+            <div class="speech-text">
+              «Hola, ¿hablo con <em>[Nombre del Cliente]</em>? Qué tal, <em>[Nombre]</em>, te habla <em>[Tu Nombre]</em> de EducUp, la plataforma para certificaciones en Florida. ¿Cómo estás el día de hoy?»
+            </div>
+            <div class="tip-row"><span>💡</span><span><strong>Consejo:</strong> Siempre usa el nombre del cliente. Crea confianza de inmediato. Espera la respuesta antes de continuar — no atropelles la conversación.</span></div>
+          </div>
+        </div>
+
+        <div id="sp-1" class="sp-content">
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-num">2</div>
+              <div class="sp-info"><h3>Historia + Gancho</h3><p>Explica el contexto y activa el interés con la oferta especial.</p></div>
+            </div>
+            <div class="speech-text">
+              «Te llamo porque Dimecuba en alianza con Educup <em>te ha seleccionado a ti</em> por ser cliente nuestro para darte una <em>promoción especial y única</em> con los cursos de pre-licencia a un precio de <em>$300 USD a solo $150 USD</em>. Dime, ¿tú ya has considerado antes ser agente de seguros?»
+            </div>
+            <div class="tip-alt"><span>✅</span><span><strong>Si dice SÍ:</strong> «Entonces este es el día para que des por fin ese paso. Dime, ¿cuál de las opciones te interesa?»</span></div>
+            <div class="tip-warn"><span>❌</span><span><strong>Si dice NO:</strong> «Te estás perdiendo una carrera que deja ingresos mínimos de hasta $25,000 USD al año. Además la IA está eliminando muchos puestos de trabajo — ¿qué tal una carrera independiente? ¿Cuál opción te llama la atención?»</span></div>
+          </div>
+        </div>
+
+        <div id="sp-2" class="sp-content">
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-num">3</div>
+              <div class="sp-info"><h3>Explicación del Producto</h3><p>Presenta opciones y profundiza en la que el cliente elija.</p></div>
+            </div>
+            <div class="speech-text">
+              «Tenemos 6 opciones:<br><br>
+              📋 <em>2-15:</em> Salud y vida — 60 horas<br>
+              📋 <em>2-14:</em> Vida + inversiones — 40 horas<br>
+              📋 <em>2-20:</em> Autos, casas, negocios — 200 horas<br>
+              📋 <em>2-40:</em> Solo salud — 40 horas<br>
+              📋 <em>Real Estate:</em> Bienes raíces — 63 horas<br>
+              📋 <em>RBT:</em> Educación especial — 40 horas<br><br>
+              El precio normal es más de $300 USD, pero hoy tienes <em>$150 USD válido solo en esta llamada</em>.»
+            </div>
+            <div class="tip-row"><span>🎯</span><span><strong>Cuando el cliente elija:</strong> Amplía información de ESA opción solamente. Usa las tarjetas de productos para tener datos a mano.</span></div>
+          </div>
+        </div>
+
+        <div id="sp-3" class="sp-content">
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-num">4</div>
+              <div class="sp-info"><h3>Cierre</h3><p>Técnica de elección asumida — nunca preguntes si/no.</p></div>
+            </div>
+            <div class="speech-text">
+              «Si pudieras generar un ingreso extra de <em>$2,000 o $3,000 dólares al mes</em> dedicándole un par de horas a la semana, ¿qué beneficio tendría eso en tus planes para este año? Bueno, para que no lo pienses más: <em>¿tu método de pago será con tarjeta de crédito o de débito?</em>»
+            </div>
+            <div class="tip-row"><span>⚡</span><span><strong>Clave:</strong> No es «¿quieres comprarlo?» sino «¿crédito o débito?». El cliente solo elige cómo pagar, no si compra.</span></div>
+            <div class="tip-blue"><span>🔵</span><span><strong>Si duda en el precio:</strong> Aplica la promo de <strong>$50 USD en 3 pagos diferidos</strong>. Esta tarjeta se juega cuando el cliente dice "tengo que pensarlo".</span></div>
+          </div>
+        </div>
+
+        <div id="sp-4" class="sp-content">
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-num">5</div>
+              <div class="sp-info"><h3>Doble Cierre — Referidos</h3><p>Después de cerrar siempre pide referidos. Es el mejor momento.</p></div>
+            </div>
+            <div class="speech-text">
+              «¡Excelente! Ya debes haber recibido un correo de bienvenida. Por cierto, <em>¿qué otra persona conoces</em> que al igual que tú le vendría bien ganar unos miles de dólares extra al mes? Por ser conocido tuyo, tiene también esta misma oportunidad.»
+            </div>
+            <div class="tip-alt"><span>🌟</span><span>El cliente acaba de comprar y está en su punto de mayor entusiasmo. Pide mínimo 2 referidos. Un referido warm puede cerrarse en 5 minutos.</span></div>
+          </div>
+        </div>
+
+        <div id="sp-5" class="sp-content">
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-num">⚡</div>
+              <div class="sp-info"><h3>Manejo de Objeciones</h3><p>Las 5 objeciones más comunes y cómo rebatirlas. Haz clic para ver cada respuesta.</p></div>
+            </div>
+            <div class="obj-list">
+              <div class="obj-item">
+                <div class="obj-q" onclick="toggleObj(this)">
+                  <div class="obj-q-left"><span class="obj-badge">Objeción</span>«No tengo tiempo por mi trabajo»</div>
+                  <span class="obj-arrow">▼</span>
+                </div>
+                <div class="obj-a">«La mejor parte es que Educup es una plataforma abierta — entras cuando quieras desde tu celular o computadora, y tienes <strong>todo un año</strong> para completarla. No tienes que parar lo que haces hoy.»</div>
+              </div>
+              <div class="obj-item">
+                <div class="obj-q" onclick="toggleObj(this)">
+                  <div class="obj-q-left"><span class="obj-badge">Objeción</span>«Ya soy mayor, esto no es para mí»</div>
+                  <span class="obj-arrow">▼</span>
+                </div>
+                <div class="obj-a">«Ser agente de seguros en Florida <strong>no tiene límite de edad</strong>. Los clientes confían más en agentes con experiencia de vida. Si empiezas hoy, ¡más pronto lo lograrás!»</div>
+              </div>
+              <div class="obj-item">
+                <div class="obj-q" onclick="toggleObj(this)">
+                  <div class="obj-q-left"><span class="obj-badge">Objeción</span>«No sé nada de vender seguros»</div>
+                  <span class="obj-arrow">▼</span>
+                </div>
+                <div class="obj-a">«Precisamente por eso existe Educup. Y no solo te ofrecemos el curso — tienes <strong>acompañamiento completo hasta obtener tu licencia</strong>. Si eliges la 2-40 o 2-15, también te ayudamos con tus primeros clientes. ¡Te llevamos de la mano!»</div>
+              </div>
+              <div class="obj-item">
+                <div class="obj-q" onclick="toggleObj(this)">
+                  <div class="obj-q-left"><span class="obj-badge">Objeción</span>«Tengo que pensarlo / hablarlo con mi pareja»</div>
+                  <span class="obj-arrow">▼</span>
+                </div>
+                <div class="obj-a">«Esta oportunidad es tu futuro y el precio especial es válido solo en esta llamada. Hablando con mi supervisor me ha autorizado una promoción adicional: <strong>inicias por solo $50 USD en 3 pagos diferidos</strong>. ¿Preferirías esa opción?»</div>
+              </div>
+              <div class="obj-item">
+                <div class="obj-q" onclick="toggleObj(this)">
+                  <div class="obj-q-left"><span class="obj-badge">Objeción</span>«No vivo en Florida»</div>
+                  <span class="obj-arrow">▼</span>
+                </div>
+                <div class="obj-a">«Entiendo. Por ahora esto funciona para el área de Florida, pero guardaré tus datos para cuando lleguemos a tu estado. Por cierto, ¿tienes algún familiar o amigo en Florida que pudiera beneficiarse?» <em>(Convierte el "no" en un referido.)</em></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GLOSARIO ── -->
+      <div id="tool-glosario" class="tool-panel">
+        <input class="glos-search" id="glosSearch" placeholder="Buscar término... ej: premium, escrow, broker" oninput="filterGlos(this.value)" />
+        <div class="glos-filters" id="glosFilters">
+          <button class="glos-filter active" onclick="filterCat('',this)">Todos</button>
+          <button class="glos-filter" onclick="filterCat('General',this)">General</button>
+          <button class="glos-filter" onclick="filterCat('Seguros',this)">Seguros</button>
+          <button class="glos-filter" onclick="filterCat('Real Estate',this)">Real Estate</button>
+          <button class="glos-filter" onclick="filterCat('RBT',this)">RBT</button>
+          <button class="glos-filter" onclick="filterCat('Bienes',this)">Bienes 2-20</button>
+          <button class="glos-filter" onclick="filterCat('Jerga',this)">Jerga</button>
+        </div>
+        <div class="glos-grid" id="glosGrid"></div>
+      </div>
+
+      <!-- ── ENLACES ── -->
+      <div id="tool-enlaces" class="tool-panel">
+        <div class="platform-link">
+          <div class="platform-icon">🖥</div>
+          <div class="platform-info">
+            <h3>Plataforma de ventas principal</h3>
+            <p>Tu herramienta más importante. <strong>Nunca la cierres durante una llamada.</strong></p>
+            <a href="https://professional.educup.io/app/products" target="_blank">→ professional.educup.io/app/products</a>
+          </div>
+        </div>
+
+        <div class="links-intro">
+          <span>ℹ️</span>
+          <span>Los siguientes links son las URLs de pago con precio promocional de <strong>$49.99 USD</strong> (3 pagos diferidos). Comparte el link correcto según el producto que eligió el cliente. Haz clic en <strong>Copiar</strong> para copiar el enlace.</span>
+        </div>
+
+        <div class="links-grid">
+          <div class="link-card">
+            <div class="link-card-header">
+              <span class="link-prod-name">2-15 Vida, Salud y Anualidades</span>
+              <span class="link-price">$49.99</span>
+            </div>
+            <div class="link-card-desc">Licencia más completa: vida, salud, Medicare y anualidades. 60 horas.</div>
+            <div class="link-url-row">
+              <span class="link-url-text">educup.com/…/42638e39-e9b3-42d1…</span>
+              <button class="copy-btn" onclick="copyLink(this,'https://www.educup.com/en/courses/bundles/42638e39-e9b3-42d1-9699-c2ad2333fedd?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred')">Copiar</button>
+            </div>
+            <a class="link-open" href="https://www.educup.com/en/courses/bundles/42638e39-e9b3-42d1-9699-c2ad2333fedd?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred" target="_blank">Abrir enlace ↗</a>
+          </div>
+
+          <div class="link-card">
+            <div class="link-card-header">
+              <span class="link-prod-name">2-14 Vida y Anualidades</span>
+              <span class="link-price">$49.99</span>
+            </div>
+            <div class="link-card-desc">Vida e inversión/retiro. Sin salud. 40 horas.</div>
+            <div class="link-url-row">
+              <span class="link-url-text">educup.com/…/6d86faeb-4eca-46c1…</span>
+              <button class="copy-btn" onclick="copyLink(this,'https://www.educup.com/en/courses/bundles/6d86faeb-4eca-46c1-9e32-da5e894b47b9?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred')">Copiar</button>
+            </div>
+            <a class="link-open" href="https://www.educup.com/en/courses/bundles/6d86faeb-4eca-46c1-9e32-da5e894b47b9?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred" target="_blank">Abrir enlace ↗</a>
+          </div>
+
+          <div class="link-card">
+            <div class="link-card-header">
+              <span class="link-prod-name">2-40 Solo Salud (Health)</span>
+              <span class="link-price">$49.99</span>
+            </div>
+            <div class="link-card-desc">Solo seguros médicos y Medicare. 40 horas. Entrada rápida.</div>
+            <div class="link-url-row">
+              <span class="link-url-text">educup.com/…/3e16668e-e531-432c…</span>
+              <button class="copy-btn" onclick="copyLink(this,'https://www.educup.com/en/courses/bundles/3e16668e-e531-432c-a13d-4bdc34961350?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred')">Copiar</button>
+            </div>
+            <a class="link-open" href="https://www.educup.com/en/courses/bundles/3e16668e-e531-432c-a13d-4bdc34961350?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred" target="_blank">Abrir enlace ↗</a>
+          </div>
+
+          <div class="link-card">
+            <div class="link-card-header">
+              <span class="link-prod-name">2-20 Líneas Generales</span>
+              <span class="link-price">$49.99</span>
+            </div>
+            <div class="link-card-desc">Autos, casas, negocios. Permite abrir agencia propia. 200 horas.</div>
+            <div class="link-url-row">
+              <span class="link-url-text">educup.com/…/f1384559-e32f-4d01…</span>
+              <button class="copy-btn" onclick="copyLink(this,'https://www.educup.com/en/courses/bundles/f1384559-e32f-4d01-8945-d66c02749870?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred')">Copiar</button>
+            </div>
+            <a class="link-open" href="https://www.educup.com/en/courses/bundles/f1384559-e32f-4d01-8945-d66c02749870?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred" target="_blank">Abrir enlace ↗</a>
+          </div>
+
+          <div class="link-card">
+            <div class="link-card-header">
+              <span class="link-prod-name">Real Estate (Realtor)</span>
+              <span class="link-price">$49.99</span>
+            </div>
+            <div class="link-card-desc">Bienes raíces en Florida. 63 horas.</div>
+            <div class="link-url-row">
+              <span class="link-url-text">educup.com/…/70143ab0-cdd5-467b…</span>
+              <button class="copy-btn" onclick="copyLink(this,'https://www.educup.com/en/courses/bundles/70143ab0-cdd5-467b-b498-e07a8df29c85?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred')">Copiar</button>
+            </div>
+            <a class="link-open" href="https://www.educup.com/en/courses/bundles/70143ab0-cdd5-467b-b498-e07a8df29c85?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred" target="_blank">Abrir enlace ↗</a>
+          </div>
+
+          <div class="link-card">
+            <div class="link-card-header">
+              <span class="link-prod-name">RBT — Técnico de Comportamiento</span>
+              <span class="link-price">$49.99</span>
+            </div>
+            <div class="link-card-desc">Certificación RBT para trabajar con niños. 40 horas.</div>
+            <div class="link-url-row">
+              <span class="link-url-text">educup.com/…/57c7fb82-c834-4c99…</span>
+              <button class="copy-btn" onclick="copyLink(this,'https://www.educup.com/en/courses/bundles/57c7fb82-c834-4c99-8645-7933b9314d75?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred')">Copiar</button>
+            </div>
+            <a class="link-open" href="https://www.educup.com/en/courses/bundles/57c7fb82-c834-4c99-8645-7933b9314d75?frequency=Once&state=&inviterId=32b210fd-c784-4c21-b599-ec0bad1b2717&payment_mode=deferred" target="_blank">Abrir enlace ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE: PROCESO ═══ -->
+  <div id="page-proceso" class="page">
+    <div class="content">
+      <div class="page-hero">
+        <div class="page-eyebrow">🗺 Ruta Crítica</div>
+        <div class="page-title">Proceso Post-Curso</div>
+        <div class="page-sub">Lo que el cliente debe hacer después de completar el curso. Conócelo para responder todas sus preguntas con confianza.</div>
+      </div>
+      <div class="proc-tabs">
+        <button class="proc-tab active" onclick="showProc('seguros',this)">Seguros (2-15 / 2-14 / 2-40 / 2-20)</button>
+        <button class="proc-tab" onclick="showProc('realtor',this)">Real Estate</button>
+        <button class="proc-tab" onclick="showProc('rbt',this)">RBT</button>
+      </div>
+
+      <div id="proc-seguros" class="proc-panel active">
+        <div class="proc-track">
+          <div class="proc-step" data-num="1"><div class="proc-step-emoji">🎓</div><div><h4>Certificado Educup</h4><p>Se obtiene al pasar el curso. <strong>Válido por 2 años.</strong> Sin este, el estado no acepta la solicitud de licencia.</p></div></div>
+          <div class="proc-step" data-num="2"><div class="proc-step-emoji">📋</div><div><h4>Solicitud al Estado (DFS)</h4><p>El cliente aplica al Department of Financial Services con el certificado en mano.</p><span class="cost-pill">~$50 – $85 según licencia</span></div></div>
+          <div class="proc-step" data-num="3"><div class="proc-step-emoji">🖐</div><div><h4>Huellas Dactilares</h4><p>Chequeo de antecedentes penales obligatorio en centros autorizados.</p><span class="cost-pill">~$50 – $60</span></div></div>
+          <div class="proc-step" data-num="4"><div class="proc-step-emoji">📝</div><div><h4>Examen del Estado — Pearson VUE</h4><p>Examen presencial. Se agenda cita en línea. Si no aprueba puede repetirlo.</p><span class="cost-pill">~$37 – $44 por intento</span></div></div>
+          <div class="proc-step" data-num="5"><div class="proc-step-emoji">✅</div><div><h4>Licencia activa + Appointment</h4><p>Con la licencia lista, el agente necesita que una compañía (ej. Florida Blue) lo "nombre" para empezar a vender.</p></div></div>
+        </div>
+      </div>
+
+      <div id="proc-realtor" class="proc-panel">
+        <div class="proc-track">
+          <div class="proc-step" data-num="1"><div class="proc-step-emoji">🎓</div><div><h4>Certificado Educup (63 horas)</h4><p>Completar el curso en la plataforma.</p></div></div>
+          <div class="proc-step" data-num="2"><div class="proc-step-emoji">📋</div><div><h4>Solicitud al DBPR</h4><p>Department of Business and Professional Regulation — regula Real Estate en Florida.</p><span class="cost-pill">~$89 solicitud</span></div></div>
+          <div class="proc-step" data-num="3"><div class="proc-step-emoji">🖐</div><div><h4>Huellas Dactilares</h4><p>Chequeo de antecedentes obligatorio.</p><span class="cost-pill">~$50 – $60</span></div></div>
+          <div class="proc-step" data-num="4"><div class="proc-step-emoji">📝</div><div><h4>Examen del Estado — Pearson VUE</h4><p>El Sales Associate siempre debe trabajar bajo un Broker al obtener la licencia.</p><span class="cost-pill">~$36.75 por intento</span></div></div>
+        </div>
+      </div>
+
+      <div id="proc-rbt" class="proc-panel">
+        <div class="proc-track">
+          <div class="proc-step" data-num="1"><div class="proc-step-emoji">🎓</div><div><h4>Completar 40 horas (Educup)</h4><p>Certificado de finalización del curso.</p></div></div>
+          <div class="proc-step" data-num="2"><div class="proc-step-emoji">👨‍🏫</div><div><h4>Evaluación de Competencias (BCBA)</h4><p>Demuestra lo aprendido frente a un supervisor BCBA. Educup orienta cómo contactar uno.</p><span class="cost-pill">Variable — algunas clínicas lo hacen gratis si te contratan</span></div></div>
+          <div class="proc-step" data-num="3"><div class="proc-step-emoji">🖐</div><div><h4>Background Check</h4><p>Chequeo de antecedentes penales. Requisito del sector salud.</p></div></div>
+          <div class="proc-step" data-num="4"><div class="proc-step-emoji">📝</div><div><h4>Examen de la BACB</h4><p>Examen oficial de la Behavior Analyst Certification Board a nivel nacional.</p><span class="cost-pill">~$50 aplicación + ~$45 examen</span></div></div>
+          <div class="proc-step" data-num="5"><div class="proc-step-emoji">✅</div><div><h4>Certificación RBT activa</h4><p>El nombre aparece en el registro nacional. Puede empezar a trabajar de inmediato.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE: QUIZ ═══ -->
+  <div id="page-quiz" class="page">
+    <div class="content">
+      <div class="page-hero">
+        <div class="page-eyebrow">🧠 Evaluación</div>
+        <div class="page-title">Quiz de Conocimientos</div>
+        <div class="page-sub">10 preguntas para medir tu nivel antes de tu primera llamada. Responde con cuidado.</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-topbar">
+          <strong id="quizLabel">Pregunta 1 de 10</strong>
+          <div class="quiz-dots" id="quizDots"></div>
+        </div>
+        <div id="quizBody"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// ─── NAVIGATION ───
+const pageNames = { inicio:'Inicio', productos:'Productos', herramientas:'Herramientas del Agente', proceso:'Proceso Post-Curso', quiz:'Quiz' };
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'"+id+"'")) n.classList.add('active');
+  });
+  document.getElementById('topbarTitle').textContent = pageNames[id] || id;
+  const pages = Object.keys(pageNames);
+  const idx = pages.indexOf(id);
+  document.getElementById('progFill').style.width = ((idx+1)/pages.length*100)+'%';
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
+}
+
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+// ─── PRODUCTS ───
+function toggleDet(btn) {
+  const d = btn.nextElementSibling;
+  const open = d.classList.contains('open');
+  d.classList.toggle('open', !open);
+  btn.textContent = open ? 'Ver detalles ↓' : 'Ocultar detalles ↑';
+}
+
+// ─── SPEECH ───
+function showStep(i) {
+  document.querySelectorAll('.sp-content').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sp-step').forEach(b => b.classList.remove('active'));
+  document.getElementById('sp-'+i).classList.add('active');
+  document.querySelectorAll('.sp-step')[i].classList.add('active');
+}
+
+function toggleObj(el) {
+  const a = el.nextElementSibling;
+  a.classList.toggle('open');
+  el.querySelector('.obj-arrow').classList.toggle('open');
+}
+
+// ─── TOOLS TABS ───
+function switchTool(id) {
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tool-'+id).classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+  showPage('herramientas');
+}
+
+// ─── PROCESS TABS ───
+function showProc(id, btn) {
+  document.querySelectorAll('.proc-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.proc-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('proc-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── COPY LINK ───
+function copyLink(btn, url) {
+  navigator.clipboard.writeText(url).then(() => {
+    btn.textContent = '✓ Copiado';
+    btn.style.color = '#15803d';
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.style.color = ''; }, 2000);
+  }).catch(() => {
+    btn.textContent = 'Error';
+    setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+  });
+}
+
+// ─── GLOSSARY ───
+const glosData = [
+  { term:'DFS', def:'Department of Financial Services. El organismo del estado de Florida que regula y emite las licencias de seguros.', cat:'General' },
+  { term:'DBPR', def:'Department of Business and Professional Regulation. Emite la licencia de bienes raíces en Florida.', cat:'General' },
+  { term:'Pearson VUE', def:'Red de centros donde se toma el examen estatal para licencias de seguros y real estate en persona.', cat:'General' },
+  { term:'Appointment (Nombramiento)', def:'Una vez con la licencia, el agente necesita que una compañía lo "nombre" para poder vender sus productos.', cat:'Seguros' },
+  { term:'Fingerprints (Huellas)', def:'Chequeo de antecedentes penales. Paso obligatorio para todos los solicitantes de licencia.', cat:'General' },
+  { term:'Residual / Renewal', def:'Dinero que el agente sigue ganando cada año que el cliente mantiene su póliza activa. La "mina de oro" de los seguros.', cat:'Seguros' },
+  { term:'Lead', def:'Un cliente potencial (prospecto). La materia prima del negocio de seguros.', cat:'Seguros' },
+  { term:'Premium (Prima)', def:'El costo del seguro. Lo que el cliente paga mensual o anualmente a la aseguradora.', cat:'Seguros' },
+  { term:'Annuity (Anualidad)', def:'Producto de ahorro a largo plazo para el retiro. Muy vendido con la 2-14 y 2-15.', cat:'Seguros' },
+  { term:'Underwriting', def:'Proceso donde la aseguradora evalúa la salud del cliente para determinar si le otorga el seguro.', cat:'Seguros' },
+  { term:'Enrollment Period', def:'Temporada del año (fin de año) donde se vende Obamacare masivamente. Alta demanda de 2-15 y 2-40.', cat:'Seguros' },
+  { term:'Rider (Cláusula)', def:'Extra que se añade a una póliza. Ej: si el cliente queda inválido, no paga más la prima.', cat:'Seguros' },
+  { term:'Beneficiary', def:'La persona que recibe el dinero del seguro de vida si el asegurado fallece.', cat:'Seguros' },
+  { term:'P&C', def:'Property and Casualty (Propiedad y Accidentes). La categoría formal de la licencia 2-20.', cat:'Bienes' },
+  { term:'Liability', def:'Responsabilidad Civil. Parte del seguro que paga si el cliente daña a alguien o su propiedad.', cat:'Bienes' },
+  { term:'Deductible', def:'Lo que el cliente paga de su bolsillo antes de que el seguro empiece a cubrir los daños.', cat:'Bienes' },
+  { term:'Policyholder', def:'El dueño de la póliza (asegurado).', cat:'General' },
+  { term:'Claim (Reclamación)', def:'Cuando ocurre un accidente y el cliente llama al seguro para que le paguen los daños.', cat:'Bienes' },
+  { term:'Broker', def:'El jefe de la oficina de Real Estate. El Sales Associate siempre debe trabajar bajo un Broker.', cat:'Real Estate' },
+  { term:'Closing (Cierre)', def:'El momento final donde se firma la venta de la propiedad y el agente recibe su comisión.', cat:'Real Estate' },
+  { term:'MLS', def:'Multiple Listing Service. Base de datos de todas las casas en venta. Solo los licenciados tienen acceso completo.', cat:'Real Estate' },
+  { term:'Escrow', def:'Cuenta de depósito neutral donde se guarda el dinero de la compra mientras se cierran los papeles legales.', cat:'Real Estate' },
+  { term:'REALTOR®', def:'No todos los licenciados son Realtors. Realtor es quien pertenece a la Asociación Nacional de Realtors.', cat:'Real Estate' },
+  { term:'ABA (Terapia)', def:'Análisis de Comportamiento Aplicado. La terapia que aplica el RBT con niños con autismo.', cat:'RBT' },
+  { term:'BCBA', def:'Board Certified Behavior Analyst. El supervisor que evalúa las competencias del RBT tras el curso.', cat:'RBT' },
+  { term:'BACB', def:'Behavior Analyst Certification Board. La junta nacional cuyo examen debe pasar el RBT para certificarse.', cat:'RBT' },
+  { term:'Book of Business', def:'La cartera de clientes acumulada. Es el activo más valioso porque genera renovaciones anuales.', cat:'Jerga' },
+  { term:'"Sacar el ticket"', def:'Jerga: pasó el examen del estado y obtuvo su licencia.', cat:'Jerga' },
+  { term:'"Estar activo"', def:'Tener la licencia vigente y los nombramientos (appointments) al día para poder vender.', cat:'Jerga' },
+  { term:'"El libro de negocio"', def:'La cartera de clientes que el agente ha construido — genera ingresos residuales.', cat:'Jerga' },
+];
+
+const catColors = { General:'#e2e8f0,#334155', Seguros:'#dcfce7,#15803d', 'Real Estate':'#fee2e2,#991b1b', RBT:'#f3e8ff,#6b21a8', Bienes:'#fef3c7,#92400e', Jerga:'#dbeafe,#1d4ed8' };
+let currentCat = '';
+
+function renderGlos(q='', cat='') {
+  const grid = document.getElementById('glosGrid');
+  const filtered = glosData.filter(g =>
+    (cat==='' || g.cat===cat) &&
+    (q==='' || g.term.toLowerCase().includes(q.toLowerCase()) || g.def.toLowerCase().includes(q.toLowerCase()))
+  );
+  grid.innerHTML = filtered.map(g => {
+    const [bg,tc] = (catColors[g.cat]||'#f1f5f9,#334155').split(',');
+    return `<div class="glos-card">
+      <div class="glos-term">${g.term}</div>
+      <div class="glos-def">${g.def}</div>
+      <span class="glos-cat" style="background:${bg};color:${tc}">${g.cat}</span>
+    </div>`;
+  }).join('') || `<p style="color:var(--ink3);font-size:0.85rem;grid-column:1/-1;text-align:center;padding:2rem;">No se encontraron resultados.</p>`;
+}
+
+function filterGlos(q) { renderGlos(q, currentCat); }
+function filterCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.glos-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGlos(document.getElementById('glosSearch').value, cat);
+}
+renderGlos();
+
+// ─── QUIZ ───
+const questions = [
+  {q:'¿Cuántas horas dura el curso de la licencia 2-15?',opts:['40 horas','60 horas','63 horas','200 horas'],ans:1,exp:'La 2-15 (Vida, Salud y Anualidades) requiere 60 horas obligatorias de estudio.'},
+  {q:'¿Cuál es la única licencia que permite abrir tu propia agencia?',opts:['2-15','2-40','2-20','2-14'],ans:2,exp:'La 2-20 (Líneas Generales P&C) permite supervisar agentes y operar una agencia propia.'},
+  {q:'¿Qué significa "Residual" o "Renewal"?',opts:['El pago inicial del cliente','El ingreso que el agente cobra cada año por renovación','El descuento especial de Dimecuba','El examen del estado'],ans:1,exp:'Los residuales son ingreso pasivo — el agente cobra cada año mientras el cliente mantenga su póliza.'},
+  {q:'Un cliente dice "tengo que pensarlo". ¿Cuál es la respuesta correcta?',opts:['OK, llámame cuando decidas','Aplicar la promo de $50 en 3 pagos diferidos y enfatizar que el precio solo es válido esta llamada','Bajar el precio a $100 inmediatamente','Programar un seguimiento para mañana'],ans:1,exp:'La promo de $50 diferida es la herramienta de cierre cuando el cliente duda. Mantienes la urgencia y reduces la barrera.'},
+  {q:'¿Dónde se toma el examen estatal para licencias de seguros?',opts:['En la oficina del DFS directamente','Online desde casa','En Pearson VUE','En la oficina de Educup'],ans:2,exp:'Pearson VUE es la red de centros donde se presentan los exámenes estatales en persona.'},
+  {q:'¿Qué vende un agente con licencia 2-40?',opts:['Solo seguros de vida','Seguros de auto y casa','Solo seguros médicos, incapacidad y Medicare','Bienes raíces'],ans:2,exp:'La 2-40 es exclusiva de salud: seguros médicos, incapacidad y Medicare. No incluye vida.'},
+  {q:'¿Cuánto tiempo tiene el cliente de Educup para completar su curso?',opts:['3 meses','6 meses','1 año','2 años'],ans:2,exp:'Educup da 1 año completo vs la competencia que solo da 3 meses — ventaja clave que debes mencionar siempre.'},
+  {q:'¿Cuál es la pregunta de cierre correcta según el speech?',opts:['¿Quieres comprar el curso?','¿Te parece bien el precio de $150?','¿Tu método de pago será con tarjeta de crédito o débito?','¿Puedo procesar tu pago hoy?'],ans:2,exp:'El cierre de elección asumida no pregunta "si compras" sino "cómo pagas". Presupone que la decisión ya está tomada.'},
+  {q:'¿Qué es el "Appointment" en seguros?',opts:['El examen del estado en Pearson VUE','La autorización de una aseguradora para que el agente venda sus productos','El certificado de Educup','Las huellas dactilares'],ans:1,exp:'Después de la licencia, el agente necesita que una aseguradora (ej. Florida Blue) lo "nombre" para vender sus productos específicamente.'},
+  {q:'¿Qué hace un Técnico de Comportamiento (RBT)?',opts:['Vende seguros médicos desde casa','Abre una agencia de seguros propia','Aplica terapia ABA con niños con autismo u otras condiciones de desarrollo','Gestiona bienes raíces en Florida'],ans:2,exp:'El RBT aplica directamente la terapia ABA con pacientes — usualmente niños con autismo. No requiere título universitario.'},
+];
+
+let cQ=0, score=0, answered=false;
+function renderQuiz() {
+  const body=document.getElementById('quizBody');
+  const dots=document.getElementById('quizDots');
+  const label=document.getElementById('quizLabel');
+  dots.innerHTML = questions.map((_,i)=>`<div class="quiz-dot ${i<cQ?'done':i===cQ?'current':''}"></div>`).join('');
+  if(cQ>=questions.length){
+    label.textContent='Resultado final';
+    const pct=Math.round(score/questions.length*100);
+    body.innerHTML=`<div class="quiz-result">
+      <div class="result-score">${score}<span style="font-size:2rem;color:var(--ink3);">/${questions.length}</span></div>
+      <div class="result-pct">${pct}% de aciertos</div>
+      <div class="result-msg">${score>=8?'🌟 Excelente. Estás listo para tu primera llamada real.':score>=6?'👍 Bien hecho, pero repasa los temas donde fallaste.':'📚 Estudia el material antes de tu primera llamada.'}</div>
+      <button class="btn-retry" onclick="resetQuiz()">🔄 Repetir Quiz</button>
+    </div>`;
+    return;
+  }
+  const q=questions[cQ];
+  label.textContent=`Pregunta ${cQ+1} de ${questions.length}`;
+  const letters=['A','B','C','D'];
+  body.innerHTML=`<div class="quiz-body">
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-opts">${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQ(${i})"><span class="opt-letter">${letters[i]}</span>${o}</button>`).join('')}</div>
+    <div class="quiz-fb" id="qFb"></div>
+    <div class="quiz-nxt" id="qNxt"><button class="btn-next" onclick="nextQ()">Siguiente →</button></div>
+  </div>`;
+  answered=false;
+}
+function answerQ(idx){
+  if(answered)return;
+  answered=true;
+  const q=questions[cQ];
+  const opts=document.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.style.pointerEvents='none');
+  opts[q.ans].classList.add('correct');
+  const fb=document.getElementById('qFb');
+  const nx=document.getElementById('qNxt');
+  if(idx===q.ans){score++;fb.className='quiz-fb show ok';fb.innerHTML='✅ Correcto. '+q.exp;}
+  else{opts[idx].classList.add('wrong');fb.className='quiz-fb show err';fb.innerHTML='❌ Incorrecto. '+q.exp;}
+  nx.classList.add('show');
+}
+function nextQ(){cQ++;renderQuiz();}
+function resetQuiz(){cQ=0;score=0;renderQuiz();}
+renderQuiz();
+</script>
+</body>
+</html>
